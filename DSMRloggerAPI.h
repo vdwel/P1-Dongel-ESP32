@@ -66,6 +66,9 @@
   #define OTAURL              "http://ota.smart-stuff.nl/v5/"
 #endif  
 
+//by: vdwel
+#define _DEFAULT_ENEVER_TOKEN "1234567890123456"
+
 #define _DEFAULT_HOMEPAGE  "/DSMRindexEDGE.html"
 #define SETTINGS_FILE      "/DSMRsettings.json"
 #define HOST_DATA_FILES    "cdn.jsdelivr.net"
@@ -277,6 +280,9 @@ float     settingENBK = 15.15, settingGNBK = 11.11;
 uint8_t   settingSmHasFaseInfo = 1;
 char      settingHostname[30] = _DEFAULT_HOSTNAME;
 char      settingIndexPage[50] = _DEFAULT_HOMEPAGE;
+
+//by: vdwel
+char      eneverToken[20] = _DEFAULT_ENEVER_TOKEN;
 
 //update
 char      BaseOTAurl[35] = OTAURL;

@@ -107,6 +107,9 @@ void writeSettings()
   doc["act-json-mqtt"] = bActJsonMQTT;
   doc["raw-port"] = bRawPort;
 
+  //by: vdwel
+  doc["EneverToken"] = eneverToken;
+
   writeToJsonFile(doc, SettingsFile);
   
 } // writeSettings()
@@ -154,6 +157,10 @@ void readSettings(bool show)
   //strcpy(LittleFSTimestamp, doc["Timestamp"]);
   strcpy(settingHostname, doc["Hostname"] | _DEFAULT_HOSTNAME );
   strcpy(settingIndexPage, doc["IndexPage"] | _DEFAULT_HOMEPAGE);
+
+  //by: vdwel  
+  strcpy(eneverToken, doc["EneverToken"] | _DEFAULT_ENEVER_TOKEN);
+  
   settingEDT1 = doc["EnergyDeliveredT1"];
   settingEDT2 = doc["EnergyDeliveredT2"];
   settingERT1 = doc["EnergyReturnedT1"];

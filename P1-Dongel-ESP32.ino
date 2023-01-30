@@ -153,6 +153,9 @@ if ( (strlen(settingMQTTbroker) > 3) && (settingMQTTinterval != 0) ) connectMQTT
   DebugTf("Startup complete! actTimestamp[%s]\r\n", actTimestamp);  
   digitalWrite(LED, LED_OFF);
   
+  //by: vdwel
+  //get new dynamic prices
+  getPrices();
 } // setup()
 
 
