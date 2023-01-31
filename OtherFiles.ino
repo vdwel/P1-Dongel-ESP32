@@ -358,6 +358,11 @@ void updateSetting(const char *field, const char *newValue)
     strcat(ota_url, newValue);
     strCopy(BaseOTAurl,sizeof(ota_url), ota_url ); 
   }
+
+  //by: vdwel
+  if (!stricmp(field, "enevertoken")){
+    strCopy(eneverToken, 19, newValue); 
+  }   
   
   //booleans
   if (!stricmp(field, "led")) LEDenabled = (stricmp(newValue, "true") == 0?true:false); 
