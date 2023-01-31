@@ -148,7 +148,11 @@ void processTelegram(){
     //by: vdwel
     //update dynamic prices
     if (hour(newT) == 1) {
-      getPrices();
+      getPowerPrices();
+    }
+
+    if (hour(newT) == 6) {
+      getGasPrices();
     }
 
     writeRingFiles();
@@ -168,7 +172,12 @@ void processTelegram(){
 
 //by: vdwel
 //Get new dynamic prices
-void getPrices() {
+void getPrices(){
+  getPowerPrices();
+  getGasPrices();
+}
+
+void getPowerPrices() {
   if (String(eneverToken) == _DEFAULT_ENEVER_TOKEN){
     DebugTln("Enever token not set.");
     return;
@@ -215,6 +224,69 @@ void getPrices() {
           PrijsFile.print(payload);
           PrijsFile.close();
           DebugTln("Downloaded prices");
+          break;
+          }          
+      }
+    }
+    else {
+      Debugln("Error code: ");
+      Debugln(httpResponseCode);
+    }
+    // Free resources
+    http.end();
+  }
+  else {
+    Debugln("WiFi Disconnected");
+  }
+}
+
+void getGasPrices() {
+  if (String(eneverToken) == _DEFAULT_ENEVER_TOKEN){
+    DebugTln("Enever token not set.");
+    return;
+  }
+  String serverName = String("https://enever.nl/api/gasprijs_vandaag.php?token=") + String(eneverToken);
+  DebugTln("Getting gas prices from: " + serverName);
+  char filedate[10];
+  //only update if the file is from a new date
+  if (LittleFS.exists("/gVandaag.json")) {
+    File PrijsFile = LittleFS.open("/gVandaag.json", "r");
+    PrijsFile.seek(37);
+    PrijsFile.readBytes(filedate, 9);
+    filedate[8] = 0;
+    //Debugln(filedate);
+    PrijsFile.close();
+  }
+
+  if(WiFi.status()== WL_CONNECTED){
+    HTTPClient http;
+
+    String serverPath = serverName;
+    
+    // Your Domain name with URL path or IP address with path
+    http.begin(serverPath.c_str());
+          
+    // Send HTTP GET request
+    int httpResponseCode = http.GET();
+    
+    if (httpResponseCode>0) {
+      String payload = http.getString();
+      for (int i=0; i<8; i++) {
+        if(payload[i + 37] != filedate[i]) {
+          DebugTln("New gas prices");
+          if (LittleFS.exists("/gVandaag.json")) {
+                  LittleFS.rename("/gVandaag.json", "/gGisteren.json");
+          }
+
+          File PrijsFile = LittleFS.open("/gVandaag.json", "w");
+          if (!PrijsFile) {
+          DebugTln("open gasprijs file FAILED!!! --> Bailout\r\n");Debugln(PrijsFile);
+            return;
+          }
+          
+          PrijsFile.print(payload);
+          PrijsFile.close();
+          DebugTln("Downloaded gas prices");
           break;
           }          
       }
