@@ -2971,6 +2971,7 @@ function show_hide_column2(table, col_no, do_show) {
 		  ,[ "pre40",				  	  "SMR 2 & 3 support"]
 		  ,[ "raw-port",				  "Telegram op poort 82"]
 		  ,[ "led-prt",				  	  "Bridge leds aan/uit"]
+      ,[ "enevertoken",				  "Token voor het ophalen van dynamische tarieven via de Enever.nl API"]
 		  		  		  
 ];
 
