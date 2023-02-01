@@ -694,7 +694,7 @@ function UpdateDash()
     {
       document.getElementById(`Pmax`).style.color = null;
       document.getElementById(`Pmin`).style.color = null;
-      document.getElementById(`Pmax`).innerHTML = "\u20AC " + nCurrentEnergyPrice.toFixed(3);
+      document.getElementById(`Pmax`).innerHTML = "\u20AC " + nCurrentEnergyPriceELEKTRA.toFixed(3);
       document.getElementById(`Pmin`).innerHTML = CurrentProvider;
     }
 
@@ -2837,17 +2837,17 @@ function show_hide_column2(table, col_no, do_show) {
         nPrice = line["prijs"+provcode];
       }
     }
-    nCurrentEnergyPriceGAS = parseFloat(nPrice);    
+    nCurrentEnergyPriceELEKTRA = parseFloat(nPrice);    
   }
 
   function readEnergyTariffs() 
   {  
-    debug("readEnergyTariffs()");
+    console.log("readEnergyTariffs()");
     fetchDataJSON(URL_LOCAL_DAYTARIFF_ELEKTRA, "DAGTARIEVEN_ELEKTRA");
     fetchDataJSON(URL_LOCAL_DAYTARIFF_GAS,     "DAGTARIEVEN_GAS");
     //fetchDataJSON(URL_LOCAL_DAYTARIFF_ELEKTRA_YESTERDAY, "DAGTARIEVEN_ELEKTRA_GISTEREN");
     //fetchDataJSON(URL_LOCAL_DAYTARIFF_GAS_YESTERDAY,     "DAGTARIEVEN_GAS_GISTER");
-    debug("~readEnergyTariffs()");
+    console.log("~readEnergyTariffs()");
   }
 
   function parseProvidersEnever(data)
